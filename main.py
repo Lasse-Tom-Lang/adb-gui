@@ -16,6 +16,10 @@ def main():
             mainWindow["-PACKAGELIST-"].update([])
         if event == "-UPDATEPACKAGELIST-" and device != "":
             mainWindow["-PACKAGELIST-"].update(adb.getPackages())
+        if event == "-REBOOT-" and device != "":
+            rebootOutput = gui.rebootCheck()
+            if rebootOutput == "OK":
+              adb.reboot()
             
     mainWindow.close()
 
