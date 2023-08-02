@@ -1,19 +1,23 @@
 import PySimpleGUI as sg
-import gui, adb
+import gui, adb, eventManager
 
 
 def main():
+    deviceConnected = False
     mainWindow = gui.mainWindow()
     while True:
-        event, values = mainWindow.read(timeout=1000)
+        event, values = mainWindow.read(timeout=2000)
         if event == sg.WIN_CLOSED:
             break
         device = adb.getConnectedDevice()
-        if device != "":
-            mainWindow["-DEVICECONNECTED-"].update(f"Connected: {device}")
-        else:
-            mainWindow["-DEVICECONNECTED-"].update("No device connected")
-            mainWindow["-PACKAGELIST-"].update([])
+        if device != "" and not deviceConnected:
+            deviceInfo = adb.getDeviceInfo()
+            packageList = adb.getPackages()
+            eventManager.updateDeviceInfo(mainWindow, device, deviceInfo, packageList)
+            deviceConnected = True
+        elif device == "":
+            eventManager.removeDeviceInfo()
+            deviceConnected = False
         if event == "-UPDATEPACKAGELIST-" and device != "":
             mainWindow["-PACKAGELIST-"].update(adb.getPackages())
         if event == "-REBOOT-" and device != "":

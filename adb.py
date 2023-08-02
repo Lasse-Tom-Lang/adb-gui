@@ -17,3 +17,10 @@ def getPackages():
 
 def reboot():
     subprocess.getoutput("adb shell reboot")
+
+
+def getDeviceInfo():
+    brand = subprocess.getoutput("adb shell getprop ro.product.brand")
+    manufacturer = subprocess.getoutput("adb shell getprop ro.product.manufacturer")
+    serialno = subprocess.getoutput("adb shell getprop ro.boot.serialno")
+    return {"brand": brand, "manufacturer": manufacturer, "serialno": serialno}

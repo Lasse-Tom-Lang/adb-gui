@@ -31,6 +31,34 @@ def mainWindow() -> sg.Window:
                             sg.Tab(
                                 "Device info",
                                 [
+                                    
+                                    [
+                                        sg.Text(
+                                            "Brand:",
+                                            text_color=textColor,
+                                            background_color=backgroundColor,
+                                            key="-BRAND-",
+                                            font="Arial 12"
+                                        )
+                                    ],
+                                    [
+                                        sg.Text(
+                                            "Manufacturer:",
+                                            text_color=textColor,
+                                            background_color=backgroundColor,
+                                            key="-MANIFACTURER-",
+                                            font="Arial 12"
+                                        )
+                                    ],
+                                    [
+                                        sg.Text(
+                                            "Serialno:",
+                                            text_color=textColor,
+                                            background_color=backgroundColor,
+                                            key="-SERIALNO-",
+                                            font="Arial 12"
+                                        )
+                                    ],
                                     [
                                         sg.Button(
                                             "Reboot",
