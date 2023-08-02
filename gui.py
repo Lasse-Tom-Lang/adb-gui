@@ -60,6 +60,62 @@ def mainWindow() -> sg.Window:
                                         )
                                     ],
                                     [
+                                        sg.Frame(
+                                            "Battery",
+                                            [
+                                                [
+                                                    sg.Text(
+                                                        "AC powered:",
+                                                        text_color=textColor,
+                                                        background_color=backgroundColor,
+                                                        key="-ACPOWERED-",
+                                                        font="Arial 12"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Text(
+                                                        "USB powered:",
+                                                        text_color=textColor,
+                                                        background_color=backgroundColor,
+                                                        key="-USBPOWERED-",
+                                                        font="Arial 12"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Text(
+                                                        "Wireless powered:",
+                                                        text_color=textColor,
+                                                        background_color=backgroundColor,
+                                                        key="-WIRELESSPOWERED-",
+                                                        font="Arial 12"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Text(
+                                                        "Battery percent:",
+                                                        text_color=textColor,
+                                                        background_color=backgroundColor,
+                                                        key="-BATTERYLEVEL-",
+                                                        font="Arial 12"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Text(
+                                                        "Temperature:",
+                                                        text_color=textColor,
+                                                        background_color=backgroundColor,
+                                                        key="-BATTERYTEMPERATURE-",
+                                                        font="Arial 12"
+                                                    )
+                                                ]
+                                            ],
+                                            textColor,
+                                            backgroundColor,
+                                            expand_x=True,
+                                            font="Arial 14"
+                                        )
+                                    ],
+                                    [
                                         sg.Button(
                                             "Reboot",
                                             key="-REBOOT-",

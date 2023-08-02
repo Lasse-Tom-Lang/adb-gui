@@ -13,10 +13,11 @@ def main():
         if device != "" and not deviceConnected:
             deviceInfo = adb.getDeviceInfo()
             packageList = adb.getPackages()
-            eventManager.updateDeviceInfo(mainWindow, device, deviceInfo, packageList)
+            batteryData = adb.getBatteryInformation()
+            eventManager.updateDeviceInfo(mainWindow, device, deviceInfo, packageList, batteryData)
             deviceConnected = True
         elif device == "":
-            eventManager.removeDeviceInfo()
+            eventManager.removeDeviceInfo(mainWindow)
             deviceConnected = False
         if event == "-UPDATEPACKAGELIST-" and device != "":
             mainWindow["-PACKAGELIST-"].update(adb.getPackages())
