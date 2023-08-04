@@ -3,7 +3,13 @@
 """
 
 
-def updateDeviceInfo(mainWindow, device, deviceInfo, packageList, batteryData):
+import PySimpleGUI as sg
+
+
+def updateDeviceInfo(mainWindow: sg.Window, device: str, deviceInfo: dict, packageList: list[str], batteryData: dict) -> None:
+    """
+      Function for updating the device information displayed in the GUI.
+    """
     mainWindow["-DEVICECONNECTED-"].update(f"Connected: {device}")
     mainWindow["-BRAND-"].update(f"Brand: {deviceInfo['brand']}")
     mainWindow["-MANIFACTURER-"].update(f"Manufacturer: {deviceInfo['manufacturer']}")
@@ -16,7 +22,10 @@ def updateDeviceInfo(mainWindow, device, deviceInfo, packageList, batteryData):
     mainWindow["-BATTERYTEMPERATURE-"].update(f"Temperature: {batteryData['temperature']}K  / {round(int(batteryData['temperature']) - 273.15, 1)}°C")
 
 
-def removeDeviceInfo(mainWindow):
+def removeDeviceInfo(mainWindow: sg.Window) -> None:
+    """
+      Function for removing all device information displayed in the GUI.
+    """
     mainWindow["-DEVICECONNECTED-"].update("No device connected")
     mainWindow["-PACKAGELIST-"].update([])
     mainWindow["-BRAND-"].update("Brand:")

@@ -1,5 +1,5 @@
 """
-  Module for creating windows
+  Module for creating windows with PySimpleGUI
 """
 
 
