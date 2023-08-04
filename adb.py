@@ -32,7 +32,7 @@ def getBatteryInformation():
         split = dataLine.split("\n")
         dataList.append(split[0][1:])
         if len(split) == 2:     
-          dataList.append(split[1][2:])
+            dataList.append(split[1][2:])
     dataList.pop(0)
     dataList.pop(0)
     dataDict = dict()

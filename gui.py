@@ -134,27 +134,57 @@ def mainWindow() -> sg.Window:
                                 "Package manager",
                                 [
                                     [
-                                        sg.Button(
-                                            "Update package list",
-                                            key="-UPDATEPACKAGELIST-",
+                                        sg.Column(
+                                            [
+                                                [
+                                                    sg.Button(
+                                                        "Update package list",
+                                                        key="-UPDATEPACKAGELIST-",
+                                                        expand_x=True,
+                                                        button_color=(textColor, highlightColor),
+                                                        border_width=0,
+                                                        font="Arial 12"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Listbox(
+                                                        [],
+                                                        key="-PACKAGELIST-",
+                                                        expand_x=True,
+                                                        expand_y=True,
+                                                        background_color=backgroundColor,
+                                                        text_color=textColor,
+                                                        sbar_trough_color=backgroundColor,
+                                                        sbar_arrow_color=textColor,
+                                                        sbar_background_color=highlightColor,
+                                                        font="Arial 14",
+                                                        change_submits=True
+                                                    )
+                                                ]
+                                            ],
+                                            backgroundColor,
                                             expand_x=True,
-                                            button_color=(textColor, highlightColor),
-                                            border_width=0,
-                                            font="Arial 12"
-                                        )
-                                    ],
-                                    [
-                                        sg.Listbox(
-                                            [],
-                                            key="-PACKAGELIST-",
+                                            expand_y=True
+                                        ),
+                                        sg.VerticalSeparator(
+                                            textColor
+                                        ),
+                                        sg.Column(
+                                            [
+                                                [
+                                                    sg.Text(
+                                                        "No package selected",
+                                                        (100, 1),
+                                                        font="Arial 14",
+                                                        background_color=backgroundColor,
+                                                        text_color=textColor,
+                                                        key="-PACKAGENAME-",
+                                                    )
+                                                ]
+                                            ],
+                                            backgroundColor,
                                             expand_x=True,
-                                            expand_y=True,
-                                            background_color=backgroundColor,
-                                            text_color=textColor,
-                                            sbar_trough_color=backgroundColor,
-                                            sbar_arrow_color=textColor,
-                                            sbar_background_color=highlightColor,
-                                            font="Arial 14"
+                                            expand_y=True
                                         )
                                     ]
                                 ],
