@@ -51,3 +51,11 @@ def getBatteryInformation() -> dict:
         dataDict[dataList[i]] = dataList[i + 1]
         i += 2
     return dataDict
+
+
+def removePackage(packageName: str, user: str = None) -> str:
+    if user != None:
+        removeOutput = subprocess.getoutput(f"adb shell pm uninstall --user {user} {packageName}")
+    else:
+        removeOutput = subprocess.getoutput(f"adb shell pm uninstall {packageName}")
+    return removeOutput

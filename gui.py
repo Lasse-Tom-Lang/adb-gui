@@ -180,6 +180,16 @@ def mainWindow() -> sg.Window:
                                                         text_color=textColor,
                                                         key="-PACKAGENAME-",
                                                     )
+                                                ],
+                                                [
+                                                    sg.Button(
+                                                        "Remove package",
+                                                        key="-REMOVEPACKAGE-",
+                                                        expand_x=True,
+                                                        button_color=(textColor, highlightColor),
+                                                        border_width=0,
+                                                        font="Arial 12"
+                                                    )
                                                 ]
                                             ],
                                             backgroundColor,
@@ -213,6 +223,46 @@ def rebootCheck():
     return sg.PopupOKCancel(
         "Do you want to reboot the connected device?",
         title="Reboot device",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def removePackageCheck(packageName: str):
+    return sg.PopupOKCancel(
+        f"Do you want to remove the package '{packageName}'?",
+        title="Remove package",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def packageRemoved(packageName):
+    return sg.PopupOK(
+        f"Package '{packageName}' removed.",
+        title="Success",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def removePackageUserZero(packageName: str):
+    return sg.PopupOKCancel(
+        f"Cant remove package. Do you want to remove the package '{packageName}' only for user 0?",
+        title="Remove package",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def packageRemoveFailed(packageName):
+    return sg.PopupOK(
+        f"Package '{packageName}' cant be removed.",
+        title="Failed",
         background_color=backgroundColor,
         button_color=(textColor, highlightColor),
         font="Arial 12"

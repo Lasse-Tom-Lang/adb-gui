@@ -27,6 +27,23 @@ def main():
                 adb.reboot()
         if event == "-PACKAGELIST-" and len(values["-PACKAGELIST-"]) != 0:
             mainWindow["-PACKAGENAME-"].update(values["-PACKAGELIST-"][0])
+        if event == "-REMOVEPACKAGE-" and len(values["-PACKAGELIST-"]) != 0:
+            removeOutput = gui.removePackageCheck(values["-PACKAGELIST-"][0])
+            if removeOutput == "OK":
+                removeOutput = adb.removePackage(values["-PACKAGELIST-"][0])
+                if removeOutput == "Success":
+                    gui.packageRemoved(values["-PACKAGELIST-"][0])
+                else:
+                    removeOutput = gui.removePackageUserZero(values["-PACKAGELIST-"][0])
+                    if removeOutput == "OK":
+                      removeOutput = adb.removePackage(values["-PACKAGELIST-"][0], "0")
+                      if removeOutput == "Success":
+                          gui.packageRemoved(values["-PACKAGELIST-"][0])
+                      else:
+                          gui.packageRemoveFailed(values["-PACKAGELIST-"][0])
+                packageList = adb.getPackages()
+                mainWindow["-PACKAGELIST-"].update(packageList)
+                mainWindow["-PACKAGENAME-"].update("No package selected")
 
     mainWindow.close()
 
