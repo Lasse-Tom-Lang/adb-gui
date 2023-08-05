@@ -147,6 +147,18 @@ def mainWindow() -> sg.Window:
                                                     )
                                                 ],
                                                 [
+                                                    sg.In(
+                                                        "",
+                                                        expand_x=True,
+                                                        background_color=backgroundColor,
+                                                        text_color=textColor,
+                                                        font="Arial 14",
+                                                        enable_events=True,
+                                                        key="-PACKAGESEARCH-",
+                                                        tooltip="Search package"
+                                                    )
+                                                ],
+                                                [
                                                     sg.Listbox(
                                                         [],
                                                         key="-PACKAGELIST-",

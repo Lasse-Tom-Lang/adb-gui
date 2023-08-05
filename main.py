@@ -4,6 +4,7 @@ import gui, adb, eventManager
 
 def main():
     deviceConnected = False
+    packageList = list()
     mainWindow = gui.mainWindow()
     while True:
         event, values = mainWindow.read(timeout=2000)
@@ -44,6 +45,13 @@ def main():
                 packageList = adb.getPackages()
                 mainWindow["-PACKAGELIST-"].update(packageList)
                 mainWindow["-PACKAGENAME-"].update("No package selected")
+        if event == "-PACKAGESEARCH-":
+            searchList = list()
+            for package in packageList:
+                if values["-PACKAGESEARCH-"] in package:
+                    searchList.append(package)
+            mainWindow["-PACKAGELIST-"].update(searchList)
+            mainWindow["-PACKAGENAME-"].update("No package selected")
 
     mainWindow.close()
 
