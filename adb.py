@@ -59,3 +59,7 @@ def removePackage(packageName: str, user: str = None) -> str:
     else:
         removeOutput = subprocess.getoutput(f"adb shell pm uninstall {packageName}")
     return removeOutput
+
+
+def installPackage(packageLocation: str):
+    return subprocess.getoutput(f"adb install {packageLocation}")

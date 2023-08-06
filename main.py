@@ -52,6 +52,14 @@ def main():
                     searchList.append(package)
             mainWindow["-PACKAGELIST-"].update(searchList)
             mainWindow["-PACKAGENAME-"].update("No package selected")
+        if event == "-INSTALLPACKAGE-" and values["-PACKAGELOCATION-"] != "" and device != "":
+            installOutput = gui.installPackage(values["-PACKAGELOCATION-"])
+            if installOutput == "OK":
+                installOutput = adb.installPackage(values["-PACKAGELOCATION-"])
+                if installOutput.split("\n")[-1] == "Success":
+                    gui.installPackageSuccess()
+                else:
+                    gui.installPackageFailed()
 
     mainWindow.close()
 

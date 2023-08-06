@@ -202,6 +202,44 @@ def mainWindow() -> sg.Window:
                                                         border_width=0,
                                                         font="Arial 12"
                                                     )
+                                                ],
+                                                [
+                                                    sg.HorizontalSeparator(
+                                                        textColor
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Text(
+                                                        "Upload package",
+                                                        font="Arial 14",
+                                                        background_color=backgroundColor,
+                                                        text_color=textColor
+                                                    )
+                                                ],
+                                                [
+                                                    sg.FileBrowse(
+                                                        "Select .apk",
+                                                        "-PACKAGELOCATION-",
+                                                        button_color=(textColor, highlightColor),
+                                                        font="Arial 12"
+                                                    ),
+                                                    sg.In(
+                                                        expand_x=True,
+                                                        disabled=True,
+                                                        key="-PACKAGELOCATION-",
+                                                        text_color=textColor,
+                                                        font="Arial 14"
+                                                    )
+                                                ],
+                                                [
+                                                    sg.Button(
+                                                        "Install package",
+                                                        key="-INSTALLPACKAGE-",
+                                                        expand_x=True,
+                                                        button_color=(textColor, highlightColor),
+                                                        border_width=0,
+                                                        font="Arial 12"
+                                                    )
                                                 ]
                                             ],
                                             backgroundColor,
@@ -274,6 +312,36 @@ def removePackageUserZero(packageName: str):
 def packageRemoveFailed(packageName):
     return sg.PopupOK(
         f"Package '{packageName}' cant be removed.",
+        title="Failed",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def installPackage(packagePath: str):
+    return sg.PopupOKCancel(
+        f"Do you want to install the package located at {packagePath}?",
+        title="Install package",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def installPackageSuccess():
+    return sg.PopupOK(
+        f"Package successfully installed.",
+        title="Success",
+        background_color=backgroundColor,
+        button_color=(textColor, highlightColor),
+        font="Arial 12"
+    )
+
+
+def installPackageFailed():
+    return sg.PopupOK(
+        f"Instalation of package failed.",
         title="Failed",
         background_color=backgroundColor,
         button_color=(textColor, highlightColor),
