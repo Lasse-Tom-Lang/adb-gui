@@ -194,6 +194,30 @@ def mainWindow() -> sg.Window:
                                                     )
                                                 ],
                                                 [
+                                                    sg.Text(
+                                                        "No package selected",
+                                                        (120, 1),
+                                                        font="Arial 12",
+                                                        background_color=backgroundColor,
+                                                        text_color=textColor,
+                                                        key="-PACKAGELOCATION-",
+                                                    )
+                                                ],
+                                                [
+                                                    sg.FolderBrowse(
+                                                        "Download package",
+                                                        "-DOWNLOADPACKAGE-",
+                                                        button_color=(textColor, highlightColor),
+                                                        font="Arial 12"
+                                                    ),
+                                                    sg.In(
+                                                        disabled=True,
+                                                        visible=False,
+                                                        key="-DOWNLOADPACKAGE-",
+                                                        change_submits=True,
+                                                    )
+                                                ],
+                                                [
                                                     sg.Button(
                                                         "Remove package",
                                                         key="-REMOVEPACKAGE-",

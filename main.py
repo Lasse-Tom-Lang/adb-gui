@@ -5,6 +5,7 @@ import gui, adb, eventManager
 def main():
     deviceConnected = False
     packageList = list()
+    packageData = {}
     mainWindow = gui.mainWindow()
     while True:
         event, values = mainWindow.read(timeout=2000)
@@ -19,15 +20,21 @@ def main():
             deviceConnected = True
         elif device == "":
             eventManager.removeDeviceInfo(mainWindow)
+            packageData = {}
             deviceConnected = False
         if event == "-UPDATEPACKAGELIST-" and device != "":
             mainWindow["-PACKAGELIST-"].update(adb.getPackages())
+            mainWindow["-PACKAGENAME-"].update("No package selected")
+            mainWindow["-PACKAGELOCATION-"].update("No package selected")
+            packageData = {}
         if event == "-REBOOT-" and device != "":
             rebootOutput = gui.rebootCheck()
             if rebootOutput == "OK":
                 adb.reboot()
         if event == "-PACKAGELIST-" and len(values["-PACKAGELIST-"]) != 0:
+            packageData = adb.getPackageData(values["-PACKAGELIST-"][0])
             mainWindow["-PACKAGENAME-"].update(values["-PACKAGELIST-"][0])
+            mainWindow["-PACKAGELOCATION-"].update(f"Location: {packageData['location']}")
         if event == "-REMOVEPACKAGE-" and len(values["-PACKAGELIST-"]) != 0:
             removeOutput = gui.removePackageCheck(values["-PACKAGELIST-"][0])
             if removeOutput == "OK":
@@ -45,6 +52,8 @@ def main():
                 packageList = adb.getPackages()
                 mainWindow["-PACKAGELIST-"].update(packageList)
                 mainWindow["-PACKAGENAME-"].update("No package selected")
+                mainWindow["-PACKAGELOCATION-"].update("No package selected")
+                packageData = {}
         if event == "-PACKAGESEARCH-":
             searchList = list()
             for package in packageList:
@@ -52,6 +61,8 @@ def main():
                     searchList.append(package)
             mainWindow["-PACKAGELIST-"].update(searchList)
             mainWindow["-PACKAGENAME-"].update("No package selected")
+            mainWindow["-PACKAGELOCATION-"].update("No package selected")
+            packageData = {}
         if event == "-INSTALLPACKAGE-" and values["-PACKAGELOCATION-"] != "" and device != "":
             installOutput = gui.installPackage(values["-PACKAGELOCATION-"])
             if installOutput == "OK":
@@ -60,6 +71,8 @@ def main():
                     gui.installPackageSuccess()
                 else:
                     gui.installPackageFailed()
+        if event == "-DOWNLOADPACKAGE-" and packageData != {} and values["-DOWNLOADPACKAGE-"] != "":
+            adb.downloadPackage(packageData["location"], values["-DOWNLOADPACKAGE-"])
 
     mainWindow.close()
 

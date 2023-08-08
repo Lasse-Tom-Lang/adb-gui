@@ -37,3 +37,4 @@ def removeDeviceInfo(mainWindow: sg.Window) -> None:
     mainWindow["-BATTERYLEVEL-"].update("Battery percent:")
     mainWindow["-BATTERYTEMPERATURE-"].update("Temperature:")
     mainWindow["-PACKAGENAME-"].update("No package selected")
+    mainWindow["-PACKAGELOCATION-"].update("No package selected")

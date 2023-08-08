@@ -63,3 +63,14 @@ def removePackage(packageName: str, user: str = None) -> str:
 
 def installPackage(packageLocation: str):
     return subprocess.getoutput(f"adb install {packageLocation}")
+
+
+def getPackageData(packageName: str):
+    location = subprocess.getoutput(f"adb shell pm path {packageName}").split("package:")[1].replace("\n", "")
+    return {
+        "location": location
+    }
+
+
+def downloadPackage(packageLocation: str, downloadLocation: str):
+    subprocess.getoutput(f"adb pull {packageLocation} '{downloadLocation}'")
