@@ -63,10 +63,10 @@ def main():
             mainWindow["-PACKAGENAME-"].update("No package selected")
             mainWindow["-PACKAGELOCATION-"].update("No package selected")
             packageData = {}
-        if event == "-INSTALLPACKAGE-" and values["-PACKAGELOCATION-"] != "" and device != "":
-            installOutput = gui.installPackage(values["-PACKAGELOCATION-"])
+        if event == "-INSTALLPACKAGE-" and values["-UPLOADPACKAGELOCATION-"] != "" and device != "":
+            installOutput = gui.installPackage(values["-UPLOADPACKAGELOCATION-"])
             if installOutput == "OK":
-                installOutput = adb.installPackage(values["-PACKAGELOCATION-"])
+                installOutput = adb.installPackage(values["-UPLOADPACKAGELOCATION-"])
                 if installOutput.split("\n")[-1] == "Success":
                     gui.installPackageSuccess()
                 else:

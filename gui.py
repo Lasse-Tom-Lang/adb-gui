@@ -243,14 +243,14 @@ def mainWindow() -> sg.Window:
                                                 [
                                                     sg.FileBrowse(
                                                         "Select .apk",
-                                                        "-PACKAGELOCATION-",
+                                                        "-UPLOADPACKAGELOCATION-",
                                                         button_color=(textColor, highlightColor),
                                                         font="Arial 12"
                                                     ),
                                                     sg.In(
                                                         expand_x=True,
                                                         disabled=True,
-                                                        key="-PACKAGELOCATION-",
+                                                        key="-UPLOADPACKAGELOCATION-",
                                                         text_color=textColor,
                                                         font="Arial 14"
                                                     )
