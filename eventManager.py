@@ -4,6 +4,8 @@
 
 
 import PySimpleGUI as sg
+import gui
+import adb
 
 
 def updateDeviceInfo(mainWindow: sg.Window, device: str, deviceInfo: dict, packageList: list[str], batteryData: dict) -> None:
@@ -36,5 +38,38 @@ def removeDeviceInfo(mainWindow: sg.Window) -> None:
     mainWindow["-WIRELESSPOWERED-"].update("Wireless powered:")
     mainWindow["-BATTERYLEVEL-"].update("Battery percent:")
     mainWindow["-BATTERYTEMPERATURE-"].update("Temperature:")
+    noPackageSelected(mainWindow)
+
+
+def noPackageSelected(mainWindow: sg.Window):
     mainWindow["-PACKAGENAME-"].update("No package selected")
     mainWindow["-PACKAGELOCATION-"].update("No package selected")
+
+
+def installPackage(uploadPackageLocation: str):
+    installOutput = gui.installPackage(uploadPackageLocation)
+    if installOutput != "OK":
+        return
+    installOutput = adb.installPackage(uploadPackageLocation)
+    if installOutput.split("\n")[-1] == "Success":
+        gui.installPackageSuccess()
+    else:
+        gui.installPackageFailed()
+
+
+def removePackage(packageToRemove: str):
+    removeOutput = gui.removePackageCheck(packageToRemove)
+    if removeOutput != "OK":
+        return False
+    removeOutput = adb.removePackage(packageToRemove)
+    if removeOutput == "Success":
+        gui.packageRemoved(packageToRemove)
+        return True
+    removeOutput = gui.removePackageUserZero(packageToRemove)
+    if removeOutput == "OK":
+      removeOutput = adb.removePackage(packageToRemove, "0")
+      if removeOutput == "Success":
+          gui.packageRemoved(packageToRemove)
+      else:
+          gui.packageRemoveFailed(packageToRemove)
+    return True
